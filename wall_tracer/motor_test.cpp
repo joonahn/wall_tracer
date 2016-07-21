@@ -8,6 +8,7 @@
 
 int main()
 {
+	// TODO: check motor is working while the robot is executing delay()
 	while(1)
 	{
 		pwm_init();

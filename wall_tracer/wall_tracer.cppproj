@@ -167,6 +167,9 @@
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="motor_test.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="soogo.h">
       <SubType>compile</SubType>
     </Compile>
