@@ -17,3 +17,16 @@ int main()
 	}
 
 }
+
+void turn_right()
+{
+	pwm(1, 20);
+	__delay_ms(200);
+}
+
+void turn_left()
+{
+	pwm(2,20);
+	__delay_ms(200);
+}
+
