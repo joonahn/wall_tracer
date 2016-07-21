@@ -1,12 +1,12 @@
-/*
+ï»¿/*
  * main2.cpp
  *
- * Created: 2016-07-10 ¿ÀÈÄ 6:17:00
+ * Created: 2016-07-10 ì˜¤í›„ 6:17:00
  *  Author: HyunSung
  */
 
 /*
- * for¹®À» »ç¿ëÇÑ ÄÚµå
+ * forë¬¸ì„ ì‚¬ìš©í•œ ì½”ë“œ
  *
  * PB1 - PWMA
  * PB2 - PWMB
@@ -38,11 +38,11 @@ float speed_outter = 0;
 float adc_sensitivity = 0;
 
 /*
-	speed_inner: È¸Àü¹æÇâ ÂÊ ¹ÙÄû , speed_outter: È¸Àü ¹İ´ë ¹æÇâ ÂÊ
-	¹ÙÄû(ex.¿ìÈ¸Àü½Ã ¿ŞÂÊ¹ÙÄû)
+	speed_inner: íšŒì „ë°©í–¥ ìª½ ë°”í€´ , speed_outter: íšŒì „ ë°˜ëŒ€ ë°©í–¥ ìª½
+	ë°”í€´(ex.ìš°íšŒì „ì‹œ ì™¼ìª½ë°”í€´)
 */
 
-int main()
+int _main()
 {
 	// Sensor variables,
 	// IRF: front, IRB: left-front, IRR: left-rear
@@ -63,7 +63,7 @@ int main()
 	DDRB = 6;
 	DDRC = 0;
 
-	//uart ¾µ¶§¸¸
+	//uart ì“¸ë•Œë§Œ
 	uart_init();
 
 	// VR Value Read
@@ -125,7 +125,7 @@ int main()
 	}
 }
 
-// adc Ã¤³ÎÀ» ¼±ÅÃÇÏ°í ÇØ´ç Ã¤³Î¿¡¼­ analog°ªÀ» ÀĞ¾î¼­ ¹İÈ¯ÇØÁÖ´Â ÇÔ¼ö
+// adc ì±„ë„ì„ ì„ íƒí•˜ê³  í•´ë‹¹ ì±„ë„ì—ì„œ analogê°’ì„ ì½ì–´ì„œ ë°˜í™˜í•´ì£¼ëŠ” í•¨ìˆ˜
 int adc_read(int channel)
 {
 	int analog;
@@ -171,7 +171,7 @@ int adc_read(int channel)
 	return analog;
 }
 
-//ÇĞ»ıÀÌ ¼³Á¤ÇÑ °¡º¯ ÀúÇ× °ªÀ» ÀĞ°í ±× °ª¿¡ µû¶ó¼­ parameter¸¦ ¼³Á¤ÇØÁÖ´Â ÇÔ¼ö
+//í•™ìƒì´ ì„¤ì •í•œ ê°€ë³€ ì €í•­ ê°’ì„ ì½ê³  ê·¸ ê°’ì— ë”°ë¼ì„œ parameterë¥¼ ì„¤ì •í•´ì£¼ëŠ” í•¨ìˆ˜
 void parameter_init()
 {
 	int PM1 = 0, PM2 = 0, PM3 = 0;
@@ -246,17 +246,17 @@ void parameter_init()
 	}
 }
 
-// PB1°ú PB2 ÇÉÀ» PWM ½ÅÈ£ outputÀ¸·Î ¼³Á¤ÇØÁÖ´Â ÇÔ¼ö. °Çµå¸±°Å ¾øÀ½
+// PB1ê³¼ PB2 í•€ì„ PWM ì‹ í˜¸ outputìœ¼ë¡œ ì„¤ì •í•´ì£¼ëŠ” í•¨ìˆ˜. ê±´ë“œë¦´ê±° ì—†ìŒ
 void pwm_init()
 {
 	/* Set PB1 and PB2 as PWM Mode */
 
-	ICR1 = 19999; // 128ÀÏ¶© 39999
+	ICR1 = 19999; // 128ì¼ë• 39999
 	TCCR1A = (1 << COM1A1) | (1 << COM1B1) | (1 << WGM11);
 	TCCR1B = (1 << WGM13) | (1 << WGM12) | (1 << CS11);
 }
 
-// channel°ú width¸¦ ¹Ş¾Æ¼­ PWM ½ÅÈ£ ÆøÀ» ¼³Á¤ÇØÁÖ´Â ÇÔ¼ö. °Á ¾²¸é µÊ
+// channelê³¼ widthë¥¼ ë°›ì•„ì„œ PWM ì‹ í˜¸ í­ì„ ì„¤ì •í•´ì£¼ëŠ” í•¨ìˆ˜. ê± ì“°ë©´ ë¨
 void pwm(int channel, float width)
 {
 	/* change PWM width(0 ~ 20). channel 1 is PB1(OC1A) pin, channel 2 is
