@@ -252,6 +252,7 @@ void pwm_init()
 	/* Set PB1 and PB2 as PWM Mode */
 
 	ICR1 = 19999; // 128일땐 39999
+	//FAST-PWM, TOP:ICR1, OCR1x update at BOTTOM, TOV1 Flag set on TOP
 	TCCR1A = (1 << COM1A1) | (1 << COM1B1) | (1 << WGM11);
 	TCCR1B = (1 << WGM13) | (1 << WGM12) | (1 << CS11);
 }
