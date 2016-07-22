@@ -12,7 +12,7 @@ int main()
 	while(1)
 	{
 		pwm_init();
-		pwm(2, 20);
+		pwm(1, 10);
 		delay();
 	}
 
