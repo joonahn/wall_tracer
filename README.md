@@ -2,7 +2,7 @@
 Wall tracer example with ATMEGA8
 
 
-## Pin configuration
+## Pin configuration 
   ![board_image](http://rc423.com/rc423/walltr_image.png)
 
 
