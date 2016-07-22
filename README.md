@@ -10,7 +10,7 @@ Wall tracer example with ATMEGA8
 | PD6  | PD5  | PD4  | PD3  | PD2  | PD1 | PD0 |
 |------|------|------|------|------|-----|-----|
 | AIN1 | AIN2 | BIN1 | BIN2 | STBY | X   | X   |
-| L    | H    | H    | L    | H    | X   | X   |
+| H    |L    | L    | H    | H    | X   | X   |
 
 ## Explanation of input/output value
   <table class="tg">
