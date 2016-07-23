@@ -10,13 +10,13 @@
 #include <avr/delay.h>
 #include <string.h>
 #include <stdio.h>
-#include "soogo.h"
+#include "wall_tracer.h"
 
- int __main()
+ int __s_main()
  {
 	// Sensor variables,
-	// IRF: front, IRB: left-front, IRR: left-rear
-	int IRF = 0, IRB = 0, IRR = 0;
+	// IRF: front, IRB: left-front, IRH: HEAD
+	int IRF = 0, IRB = 0, IRH = 0;
 
 	// Debug string
 	char str[200];
@@ -29,14 +29,14 @@
 		//Get the sensor values
 		//IRF = adc_read(4);
 		//IRB = adc_read(2);
-		//IRR = adc_read(0);
+		//IRH = adc_read(0);
 
-		IRF = adc_read(5);
-		IRB = adc_read(3);
-		IRR = adc_read(1);
+		IRB = adc_read(5);
+		IRF = adc_read(3);
+		IRH = adc_read(1);
 
 		// Print Debug string
-		sprintf(str, "IRF : %d\n IRB : %d\nIRR : %d\n\n", IRF, IRB, IRR);
+		sprintf(str, "IRF : %d\n IRB : %d\nIRH : %d\n\n", IRF, IRB, IRH);
 		uart_puts(str);
 
 		_delay_ms(1000);

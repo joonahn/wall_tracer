@@ -11,6 +11,7 @@ void uart_transmit(unsigned char data);
 unsigned char uart_receive(void);
 void uart_puts(const char * str);
 int abs(int num);
-
+void turn_right();
+void turn_left();
 
 #endif

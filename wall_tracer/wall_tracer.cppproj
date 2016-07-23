@@ -173,10 +173,13 @@
     <Compile Include="sensor_test.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="soogo.h">
+    <Compile Include="turn_test.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="turn_test.cpp">
+    <Compile Include="wall_tracer.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="wall_tracer.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

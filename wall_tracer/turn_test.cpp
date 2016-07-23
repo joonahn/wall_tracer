@@ -10,12 +10,10 @@
  #include <avr/delay.h>
  #include <string.h>
  #include <stdio.h>
- #include "soogo.h"
+ #include "wall_tracer.h"
 
  #define F_CPU 8000000
 
-  void turn_right();
-  void turn_left();
   volatile unsigned char value;
 
   ISR(USART_RXC_vect) {
@@ -30,7 +28,7 @@
 	}
   }
 
- int main()
+ int __t_main()
  {
 	//Init
 	 uart_init();
@@ -51,35 +49,5 @@
 	 {
 	 }
 
- }
-
- void turn_right()
- {
-	//Rotate left wheel
-	PORTD = 0;
-	PORTD |= (0<<PD4) | (1<<PD3);
-	PORTD |= (1<<PD2);
-
-	//Delay
-	_delay_ms(2000);
-
-	//Stop both wheel
-	PORTD = 0;
-	PORTD |= (1<<PD2);
- }
-
- void turn_left()
- {
-	//Rotate right wheel
-	PORTD = 0;
-	PORTD |= (1<<PD6) | (0<<PD5);
-	PORTD |= (1<<PD2);
-
-	//Delay
-	_delay_ms(2000);
-
-	//Stop both wheel
-	PORTD = 0;
-	PORTD |= (1<<PD2);
  }
 

@@ -3,14 +3,16 @@
 #include <avr/delay.h>
 #include <string.h>
 #include <stdio.h>
-#include "soogo.h"
+#include "wall_tracer.h"
 
 
 int ___main()
 {
 	// TODO: check motor is working while the robot is executing delay()--> Yes
 	// TODO: Get sensor value--> Yes
-	// TODO: implement turn_right, turn_left function --> motor will change
+	// TODO: implement turn_right, turn_left function --> motor will change --> Yes
+	// TODO: integrate sensor and motor
+
 	uart_init();
 	pwm_init();
 	DDRB = 0x6;
