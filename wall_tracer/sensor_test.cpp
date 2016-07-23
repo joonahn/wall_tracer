@@ -21,12 +21,19 @@
 	// Debug string
 	char str[200];
 
+	//Init functions
+	uart_init();
+
 	while(1)
 	{
 		//Get the sensor values
-		IRF = adc_read(4);
-		IRB = adc_read(2);
-		IRR = adc_read(0);
+		//IRF = adc_read(4);
+		//IRB = adc_read(2);
+		//IRR = adc_read(0);
+
+		IRF = adc_read(5);
+		IRB = adc_read(3);
+		IRR = adc_read(1);
 
 		// Print Debug string
 		sprintf(str, "IRF : %d\n IRB : %d\nIRR : %d\n\n", IRF, IRB, IRR);
