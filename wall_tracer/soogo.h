@@ -8,6 +8,7 @@ void pwm(int channel, float width);
 void delay();
 void uart_init();
 void uart_transmit(unsigned char data);
+unsigned char uart_receive(void);
 void uart_puts(const char * str);
 int abs(int num);
 

@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "soogo.h"
 
- int main()
+ int __main()
  {
 	// Sensor variables,
 	// IRF: front, IRB: left-front, IRR: left-rear

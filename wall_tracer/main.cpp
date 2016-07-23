@@ -277,7 +277,7 @@ void uart_init()
 {
 	UBRRH = (unsigned char)(ubrr >> 8);
 	UBRRL = (unsigned char)ubrr;
-	UCSRB = (1 << RXEN) | (1 << TXEN) /*| (1<<RXCIE)*/;
+	UCSRB = (1 << RXEN) | (1 << TXEN) | (1<<RXCIE);
 	UCSRC = (1 << URSEL) | (0 << USBS) | (3 << UCSZ0);
 }
 
@@ -286,6 +286,12 @@ void uart_transmit(unsigned char data)
 	while (!(UCSRA & 0b00100000))
 		;
 	UDR = data;
+}
+
+unsigned char uart_receive(void)
+{
+	while (!(UCSRA) & (1<<RXC));
+	return UDR;
 }
 
 void uart_puts(const char * str)
