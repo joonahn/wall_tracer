@@ -1,4 +1,4 @@
-# wall_tracer
+# WALL TRACER
 Wall tracer example with ATMEGA8
 
 
