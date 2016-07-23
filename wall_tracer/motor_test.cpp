@@ -6,9 +6,11 @@
 #include "soogo.h"
 
 
-int main()
+int __main()
 {
-	// TODO: check motor is working while the robot is executing delay()
+	// TODO: check motor is working while the robot is executing delay()--> Yes
+	// TODO: implement turn_right, turn_left function --> motor will change
+	// TODO: Get sensor value
 	uart_init();
 	pwm_init();
 	DDRB = 0x6;
@@ -30,7 +32,6 @@ int main()
 	while(1)
 	{
 		_delay_ms(1000);
-		
 		uart_transmit('A');
 	}
 
