@@ -96,8 +96,8 @@ int main()
 		else */if(IRF<th4)
 		{
 			// turn_left();
-			pwm(1,10);
-			pwm(2,7.5);
+			pwm(1,3);
+			pwm(2,5);
 			uart_puts("out of th4\n");
 			continue;
 		}
@@ -148,11 +148,19 @@ int main()
 		}
 		*/
 
+		// if(IRF<th3)
+		// {
+		// 	delta = th3-IRF;
+		// 	pwm(1,5-delta/40.0);
+		// 	pwm(2,5);
+		// 	uart_puts("in th3-th4 area\n");
+		// 	continue;
+		// }
 		if(IRF<th3)
 		{
 			delta = th3-IRF;
-			pwm(1,10-delta/20.0);
-			pwm(2,10);
+			pwm(1,3.8);
+			pwm(2,5);
 			uart_puts("in th3-th4 area\n");
 			continue;
 		}
@@ -160,30 +168,38 @@ int main()
 		{
 			if(heading>0)
 			{
-				pwm(1,10);
-				pwm(2,10-heading/20.0);
+				pwm(1,5);
+				pwm(2,5-heading/40.0);
 				uart_puts("positive heading\n");
 			}
 			if(heading<0)
 			{
-				pwm(1,10+heading/20.0);
-				pwm(2,10);
+				pwm(1,5+heading/40.0);
+				pwm(2,5);
 				uart_puts("negative heading\n");
 			}
 			continue;
 		}
+		// else if(IRF<th1)
+		// {
+		// 	delta = IRF-th2;
+		// 	pwm(1,5);
+		// 	pwm(2,5-delta/40.0);
+		// 	uart_puts("in th1-th2 area\n");
+		// 	continue;
+		// }
 		else if(IRF<th1)
 		{
 			delta = IRF-th2;
-			pwm(1,10);
-			pwm(2,10-delta/20.0);
+			pwm(1,5);
+			pwm(2,3.8);
 			uart_puts("in th1-th2 area\n");
 			continue;
 		}
 		else
 		{
-			pwm(1,10);
-			pwm(2,7.5);
+			pwm(1,5);
+			pwm(2,3);
 			uart_puts("out of th1\n");
 			continue;
 		}
