@@ -102,60 +102,7 @@ int main()
 			continue;
 		}
 
-		/****** THRESHOLD method
-		else if(IRF>th1)
-		{
-			//(LEFT, RIGHT) = (1, 0.75)
-			pwm(1, 10);
-			pwm(2, 7.5);
-			continue;
-		}
-		
-		else if(IRF<th2)
-		{
-			//(LEFT, RIGHT) = (0.75, 1)
-			pwm(1, 7.5);
-			pwm(2, 10);
-			continue;
-		}*/
 
-		/****** DELTA method
-		//AVG-IRF
-		delta = (350)-IRF;
-		if(delta>0)
-		{
-			pwm(1,10-(delta>>7));
-			pwm(2,10);
-		}
-		else if(delta <0)
-		{
-			pwm(1,10);
-			pwm(2,10+(delta>>7));
-		} */
-
-		/***** heading method
-		if(heading>0)
-		{
-			pwm(1,10);
-			pwm(2,10-(heading>>5));
-			uart_puts("positive heading\n");
-		}
-		if(heading<0)
-		{
-			pwm(1,10-(heading>>5));
-			pwm(2,10);
-			uart_puts("negative heading\n");
-		}
-		*/
-
-		// if(IRF<th3)
-		// {
-		// 	delta = th3-IRF;
-		// 	pwm(1,5-delta/40.0);
-		// 	pwm(2,5);
-		// 	uart_puts("in th3-th4 area\n");
-		// 	continue;
-		// }
 		if(IRF<th3)
 		{
 			delta = th3-IRF;
@@ -180,14 +127,7 @@ int main()
 			}
 			continue;
 		}
-		// else if(IRF<th1)
-		// {
-		// 	delta = IRF-th2;
-		// 	pwm(1,5);
-		// 	pwm(2,5-delta/40.0);
-		// 	uart_puts("in th1-th2 area\n");
-		// 	continue;
-		// }
+
 		else if(IRF<th1)
 		{
 			delta = IRF-th2;
