@@ -42,7 +42,7 @@ int main()
 	int IRF = 0, IRB = 0, IRH = 0; 
 
 	// Threshold Variables
-	int th1 = 500, th2 = 400, med = 350, th3 = 300, th4=200;
+	int th1 = 500, th2 = 400, med = 350, th3 = 300, th4=200, th5 = 100;
 	int delta = 0;
 	int heading = 0;
 
@@ -59,8 +59,8 @@ int main()
 	// VR Value Read
 	//parameter_init();
 	pwm_init();
-	pwm(1, 10);
-	pwm(2, 10);
+	pwm(1, 20);
+	pwm(2, 20);
 
 	while (1) {
 
@@ -93,11 +93,16 @@ int main()
 			uart_puts("IRH>th4\n");
 			continue;
 		}
-		else */if(IRF<th4)
+		else */
+		if(IRF<th5)
+		{
+			turn_left();
+		}
+		else if(IRF<th4)
 		{
 			// turn_left();
-			pwm(1,3);
-			pwm(2,5);
+			pwm(1,12);
+			pwm(2,20);
 			uart_puts("out of th4\n");
 			continue;
 		}
@@ -106,8 +111,8 @@ int main()
 		if(IRF<th3)
 		{
 			delta = th3-IRF;
-			pwm(1,3.8);
-			pwm(2,5);
+			pwm(1,15);
+			pwm(2,20);
 			uart_puts("in th3-th4 area\n");
 			continue;
 		}
@@ -115,14 +120,14 @@ int main()
 		{
 			if(heading>0)
 			{
-				pwm(1,5);
-				pwm(2,5-heading/40.0);
+				pwm(1,20);
+				pwm(2,20-heading/20.0);
 				uart_puts("positive heading\n");
 			}
 			if(heading<0)
 			{
-				pwm(1,5+heading/40.0);
-				pwm(2,5);
+				pwm(1,20+heading/20.0);
+				pwm(2,20);
 				uart_puts("negative heading\n");
 			}
 			continue;
@@ -131,15 +136,15 @@ int main()
 		else if(IRF<th1)
 		{
 			delta = IRF-th2;
-			pwm(1,5);
-			pwm(2,3.8);
+			pwm(1,20);
+			pwm(2,15);
 			uart_puts("in th1-th2 area\n");
 			continue;
 		}
 		else
 		{
-			pwm(1,5);
-			pwm(2,3);
+			pwm(1,20);
+			pwm(2,12);
 			uart_puts("out of th1\n");
 			continue;
 		}

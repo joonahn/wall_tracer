@@ -210,9 +210,8 @@ int abs(int num)
  void turn_right()
  {
 	 //Rotate left wheel
-	 PORTD = 0;
-	 PORTD |= (0<<PD4) | (1<<PD3);
-	 PORTD |= (1<<PD2);
+ 	pwm(1, 20);
+ 	pwm(2, 8);
 
 	 //Delay
 	 _delay_ms(2000);
@@ -225,9 +224,8 @@ int abs(int num)
  void turn_left()
  {
 	 //Rotate right wheel
-	 PORTD = 0;
-	 PORTD |= (1<<PD6) | (0<<PD5);
-	 PORTD |= (1<<PD2);
+ 	pwm(1, 8);
+ 	pwm(2, 20);
 
 	 //Delay
 	 _delay_ms(2000);
