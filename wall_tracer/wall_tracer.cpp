@@ -214,11 +214,8 @@ int abs(int num)
  	pwm(2, 8);
 
 	 //Delay
-	 _delay_ms(2000);
+	 _delay_ms(2200);
 
-	 //Stop both wheel
-	 PORTD = 0;
-	 PORTD |= (1<<PD2);
  }
 
  void turn_left()
@@ -228,10 +225,7 @@ int abs(int num)
  	pwm(2, 20);
 
 	 //Delay
-	 _delay_ms(2000);
+	 _delay_ms(2200);
 
-	 //Stop both wheel
-	 PORTD = 0;
-	 PORTD |= (1<<PD2);
  }
 

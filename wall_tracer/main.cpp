@@ -44,7 +44,10 @@ int main()
 	// Threshold Variables
 	int th1 = 500, th2 = 400, med = 350, th3 = 300, th4=200, th5 = 100;
 	int delta = 0;
+
+	//Heading = sensor value difference
 	int heading = 0;
+	int target_heading = 0;
 
 	// Debug string
 	char str[200];
@@ -62,21 +65,18 @@ int main()
 	pwm(1, 20);
 	pwm(2, 20);
 
-	while (1) {
+	//Motor Signal Initialization
+	PORTD = 0;
+	PORTD |= (1<<PD6) | (0<<PD5);
+	PORTD |= (0<<PD4) | (1<<PD3);
+	PORTD |= (1<<PD2);
 
-		//Make the robot move
-		PORTD = 0;
-		PORTD |= (1<<PD6) | (0<<PD5);
-		PORTD |= (0<<PD4) | (1<<PD3);
-		PORTD |= (1<<PD2);
-		
+	while (1) {
 
 		//Read Sensor Value
 		IRB = adc_read(1);
 		IRF = adc_read(3);
 		IRH = adc_read(5);
-
-
 
 		//ALIGN
 		heading = IRF-IRB;
@@ -85,68 +85,56 @@ int main()
 		sprintf(str, "IRF : %d\n IRB : %d\nIRH : %d\n\n", IRF, IRB, IRH);
 		uart_puts(str);
 
-		//Make a big turn
-		/*
-		if(IRH>th4)
-		{
-			turn_right();
-			uart_puts("IRH>th4\n");
-			continue;
-		}
-		else */
+		//Set target heading
 		if(IRF<th5)
 		{
 			turn_left();
+			target_heading = 0;
 		}
+
 		else if(IRF<th4)
 		{
-			// turn_left();
-			pwm(1,12);
-			pwm(2,20);
+			target_heading = 80;
 			uart_puts("out of th4\n");
-			continue;
 		}
-
-
-		if(IRF<th3)
+		
+		else if(IRF<th3)
 		{
-			delta = th3-IRF;
-			pwm(1,15);
-			pwm(2,20);
+			target_heading = 50;
 			uart_puts("in th3-th4 area\n");
-			continue;
 		}
+
 		else if(IRF<th2)
 		{
-			if(heading>0)
-			{
-				pwm(1,20);
-				pwm(2,20-heading/20.0);
-				uart_puts("positive heading\n");
-			}
-			if(heading<0)
-			{
-				pwm(1,20+heading/20.0);
-				pwm(2,20);
-				uart_puts("negative heading\n");
-			}
-			continue;
+			target_heading = 0;
+			uart_puts("in th2-th3 area\n");
 		}
 
 		else if(IRF<th1)
 		{
+			target_heading = -50;
 			delta = IRF-th2;
-			pwm(1,20);
-			pwm(2,15);
 			uart_puts("in th1-th2 area\n");
-			continue;
 		}
+
 		else
 		{
-			pwm(1,20);
-			pwm(2,12);
+			target_heading = -80;
 			uart_puts("out of th1\n");
-			continue;
+		}
+
+		//Make current heading to target heading
+		if(heading - target_heading > 0)
+		{
+			pwm(1,20);
+			pwm(2,20-(heading - target_heading)/20.0);
+			uart_puts("positive heading\n");
+		}
+		if(heading - target_heading < 0)
+		{
+			pwm(1,20+(heading - target_heading)/20.0);
+			pwm(2,20);
+			uart_puts("negative heading\n");
 		}
 	}
 }
