@@ -13,5 +13,8 @@ void uart_puts(const char * str);
 int abs(int num);
 void turn_right();
 void turn_left();
+void point_turn_right();
+void point_turn_left();
+void go_straight(int millisec);
 
 #endif

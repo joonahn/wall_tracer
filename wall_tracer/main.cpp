@@ -86,9 +86,18 @@ int main()
 		uart_puts(str);
 
 		//Set target heading
+
+		if(IRH>th3)
+		{
+			point_turn_right();
+			target_heading = 0;
+		}
+
 		if(IRF<th5)
 		{
-			turn_left();
+			go_straight(880);
+			point_turn_left();
+			go_straight(1200);
 			target_heading = 0;
 		}
 

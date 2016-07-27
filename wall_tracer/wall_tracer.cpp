@@ -229,3 +229,56 @@ int abs(int num)
 
  }
 
+void point_turn_right()
+{
+	// Change Direction
+	PORTD = 0;
+	PORTD |= (0<<PD6) | (1<<PD5);
+	PORTD |= (0<<PD4) | (1<<PD3);
+	PORTD |= (1<<PD2);
+
+	// Rotate both wheels
+	pwm(1,20);
+	pwm(2,20);
+
+	// Delay
+	_delay_ms(800);
+
+	// Revert Direction
+	PORTD = 0;
+	PORTD |= (1<<PD6) | (0<<PD5);
+	PORTD |= (0<<PD4) | (1<<PD3);
+	PORTD |= (1<<PD2);
+}
+
+void point_turn_left()
+{
+	// Change Direction
+	PORTD = 0;
+	PORTD |= (1<<PD6) | (0<<PD5);
+	PORTD |= (1<<PD4) | (0<<PD3);
+	PORTD |= (1<<PD2);
+
+	// Rotate both wheels
+	pwm(1,20);
+	pwm(2,20);
+
+	// Delay
+	_delay_ms(800);
+
+	// Revert Direction
+	PORTD = 0;
+	PORTD |= (1<<PD6) | (0<<PD5);
+	PORTD |= (0<<PD4) | (1<<PD3);
+	PORTD |= (1<<PD2);
+}
+
+void go_straight(int millisec)
+{
+	// Rotate both wheels
+	pwm(1,20);
+	pwm(2,20);
+
+	// Delay
+	_delay_ms(millisec);
+}
