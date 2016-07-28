@@ -95,9 +95,13 @@ int main()
 
 		if(IRF<th5)
 		{
-			go_straight(880);
+			pwm(1,20);
+			pwm(2,20);
+			_delay_ms(880);
 			point_turn_left();
-			go_straight(1200);
+			pwm(1,20);
+			pwm(2,20);
+			_delay_ms(1200);
 			target_heading = 0;
 		}
 

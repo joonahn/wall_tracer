@@ -272,13 +272,3 @@ void point_turn_left()
 	PORTD |= (0<<PD4) | (1<<PD3);
 	PORTD |= (1<<PD2);
 }
-
-void go_straight(int millisec)
-{
-	// Rotate both wheels
-	pwm(1,20);
-	pwm(2,20);
-
-	// Delay
-	_delay_ms(millisec);
-}
