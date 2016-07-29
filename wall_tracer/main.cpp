@@ -22,13 +22,10 @@
 #include <stdio.h>
 #include "wall_tracer.h"
 
-// speed parameters
-float speed_straight = 0;
-float speed_inner = 0;
-float speed_outter = 0;
-
 // adc sensitivity parameter
-float adc_sensitivity = 0;
+int dist_bias = 0;
+float speed_bias = 0;
+int turn_bias = 0;
 
 /*
 	speed_inner: 회전방향 쪽 바퀴 , speed_outter: 회전 반대 방향 쪽
@@ -55,15 +52,16 @@ int main()
 	// Debug string
 	char str[200];
 
+	// PORT Init
 	DDRB = 6;
 	DDRC = 0;
 	DDRD = 0x1F;
 
-	//Initialize UART
-	//uart_init();
 
 	// VR Value Read
-	//parameter_init();
+	parameter_init();
+
+	// PWM Init
 	pwm_init();
 	pwm(1, 20);
 	pwm(2, 20);
@@ -76,6 +74,13 @@ int main()
 
 
 	while (1) {
+		// Read VR value
+		parameter_init();
+		th1 = 450 + dist_bias;
+		th2 = 400 + dist_bias;
+		th3 = 390 + dist_bias;
+		th4 = 340 + dist_bias;
+		th5 = 290 + dist_bias;
 
 		//Read Sensor Value
 		IRB = adc_read(1);
@@ -95,13 +100,23 @@ int main()
 
 		if(IRF<200)
 		{
-			pwm(1,20);
-			pwm(2,20);
-			_delay_ms(880);
+			pwm(1,20*speed_bias);
+			pwm(2,20*speed_bias);
+
+			//_delay_ms(880/speed_bias)
+			int sec = (88 / speed_bias);
+			for(int i = 0;i<sec;i++)
+				_delay_ms(10);
+
 			point_turn_left();
-			pwm(1,20);
-			pwm(2,20);
-			_delay_ms(1300);
+
+			pwm(1,20*speed_bias);
+			pwm(2,20*speed_bias);
+
+			//_delay_ms(1300/speed_bias)
+			sec = (130 / speed_bias);
+			for(int i = 0;i<sec;i++)
+				_delay_ms(10);
 			target_heading = 0;
 		}
 		else if(IRF<th5)
@@ -144,14 +159,14 @@ int main()
 		if(heading - target_heading > 0)
 		{
 			// positive heading
-			pwm(1,20);
-			pwm(2,20-(heading - target_heading)/20.0);
+			pwm(1,20*speed_bias);
+			pwm(2,(20-(heading - target_heading)/20.0)*speed_bias);
 		}
 		if(heading - target_heading < 0)
 		{
 			// negative heading
-			pwm(1,20+(heading - target_heading)/20.0);
-			pwm(2,20);
+			pwm(1,(20+(heading - target_heading)/20.0)*speed_bias);
+			pwm(2,20*speed_bias);
 		}
 	}
 }

@@ -17,9 +17,9 @@
 #include "wall_tracer.h"
 
  // speed parameters
-extern float speed_straight;
-extern float speed_inner;
-extern float speed_outter;
+extern int dist_bias;
+extern float speed_bias;
+extern int turn_bias;
 
 // adc 채널을 선택하고 해당 채널에서 analog값을 읽어서 반환해주는 함수
 int adc_read(int channel)
@@ -70,76 +70,14 @@ int adc_read(int channel)
 //학생이 설정한 가변 저항 값을 읽고 그 값에 따라서 parameter를 설정해주는 함수
 void parameter_init()
 {
-	int PM1 = 0, PM2 = 0, PM3 = 0;
+	int vr0, vr1, vr2;
+	vr0 = adc_read(0);
+	vr1 = adc_read(2);
+	vr2 = adc_read(4);
+	dist_bias = (vr0-250)/5;
+	speed_bias = vr1/1024.0;
+	turn_bias = vr2>>5;
 
-	PM1 = adc_read(6);
-	PM2 = adc_read(3);
-	PM3 = adc_read(5);
-
-	switch (PM1 % 100) // speed parameter
-	{
-	case 0:
-	case 1:
-	case 2:
-		speed_straight = 10;
-		speed_inner = 3;
-		speed_outter = 7;
-		break;
-	case 3:
-	case 4:
-		speed_straight = 10;
-		speed_inner = 3;
-		speed_outter = 7;
-		break;
-	case 5:
-	case 6:
-		speed_straight = 10;
-		speed_inner = 3;
-		speed_outter = 7;
-		break;
-	case 7:
-	case 8:
-		speed_straight = 10;
-		speed_inner = 3;
-		speed_outter = 7;
-		break;
-	case 9:
-	case 10:
-		speed_straight = 10;
-		speed_inner = 3;
-		speed_outter = 7;
-		break;
-	}
-	switch (PM2 % 100) // sensor sensitivity parameter
-	{
-	case 0:
-	case 1:
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-	case 6:
-	case 7:
-	case 8:
-	case 9:
-	case 10:
-	break;
-	}
-	switch (PM3 % 100) // Not decisive
-	{
-	case 0:
-	case 1:
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-	case 6:
-	case 7:
-	case 8:
-	case 9:
-	case 10:
-	break;
-	}
 }
 
 // PB1과 PB2 핀을 PWM 신호 output으로 설정해주는 함수. 건드릴거 없음
@@ -210,8 +148,8 @@ int abs(int num)
  void turn_right()
  {
 	 //Rotate left wheel
- 	pwm(1, 20);
- 	pwm(2, 8);
+ 	pwm(1, 20*speed_bias);
+ 	pwm(2, 8*speed_bias);
 
 	 //Delay
 	 _delay_ms(2200);
@@ -221,8 +159,8 @@ int abs(int num)
  void turn_left()
  {
 	 //Rotate right wheel
- 	pwm(1, 8);
- 	pwm(2, 20);
+ 	pwm(1, 8*speed_bias);
+ 	pwm(2, 20*speed_bias);
 
 	 //Delay
 	 _delay_ms(2200);
@@ -238,11 +176,13 @@ void point_turn_right()
 	PORTD |= (1<<PD2);
 
 	// Rotate both wheels
-	pwm(1,20);
-	pwm(2,20);
+	pwm(1,20*speed_bias);
+	pwm(2,20*speed_bias);
 
 	// Delay
-	_delay_ms(800);
+	//_delay_ms(800*turn_bias);
+	for(int i = 0;i<turn_bias;i++)
+		_delay_ms(50);
 
 	// Revert Direction
 	PORTD = 0;
@@ -260,11 +200,13 @@ void point_turn_left()
 	PORTD |= (1<<PD2);
 
 	// Rotate both wheels
-	pwm(1,20);
-	pwm(2,20);
+	pwm(1,20*speed_bias);
+	pwm(2,20*speed_bias);
 
 	// Delay
-	_delay_ms(800);
+	//_delay_ms(800*turn_bias);
+	for(int i = 0;i<turn_bias;i++)
+		_delay_ms(50);
 
 	// Revert Direction
 	PORTD = 0;
