@@ -42,7 +42,10 @@ int main()
 	int IRF = 0, IRB = 0, IRH = 0; 
 
 	// Threshold Variables
-	int th1 = 500, th2 = 400, med = 350, th3 = 300, th4=200, th5 = 100;
+	// Too Loose!
+	// int th1 = 500, th2 = 400, med = 350, th3 = 300, th4=200, th5 = 100;
+	// new threshold
+	int th1 = 450, th2 = 400, th3 = 390, th4=340, th5 = 290;
 	int delta = 0;
 
 	//Heading = sensor value difference
@@ -82,19 +85,15 @@ int main()
 		//ALIGN
 		heading = IRF-IRB;
 
-		// Print Debug string
-		//sprintf(str, "IRF : %d\n IRB : %d\nIRH : %d\n\n", IRF, IRB, IRH);
-		uart_puts(str);
-
 		//Set target heading
 
-		if(IRH>th3)
+		if(IRH>300)
 		{
 			point_turn_right();
 			target_heading = 0;
 		}
 
-		if(IRF<th5)
+		if(IRF<200)
 		{
 			pwm(1,20);
 			pwm(2,20);
@@ -102,53 +101,57 @@ int main()
 			point_turn_left();
 			pwm(1,20);
 			pwm(2,20);
-			_delay_ms(1200);
+			_delay_ms(1300);
 			target_heading = 0;
+		}
+		else if(IRF<th5)
+		{
+			target_heading = 80;
 		}
 
 		else if(IRF<th4)
 		{
+			// out of th4
 			target_heading = 80;
-			uart_puts("out of th4\n");
 		}
 		
 		else if(IRF<th3)
 		{
+			// in th3-th4 area
 			target_heading = 50;
-			uart_puts("in th3-th4 area\n");
 		}
 
 		else if(IRF<th2)
 		{
+			// in th2-th3 area
 			target_heading = 0;
-			uart_puts("in th2-th3 area\n");
 		}
 
 		else if(IRF<th1)
 		{
+			// in th1-th2 area
 			target_heading = -50;
 			delta = IRF-th2;
-			uart_puts("in th1-th2 area\n");
 		}
 
 		else
 		{
+			// out of th1
 			target_heading = -80;
-			uart_puts("out of th1\n");
 		}
 
 		//Make current heading to target heading
 		if(heading - target_heading > 0)
 		{
+			// positive heading
 			pwm(1,20);
 			pwm(2,20-(heading - target_heading)/20.0);
-			uart_puts("positive heading\n");
 		}
 		if(heading - target_heading < 0)
 		{
+			// negative heading
 			pwm(1,20+(heading - target_heading)/20.0);
 			pwm(2,20);
-			uart_puts("negative heading\n");
 		}
 	}
 }
