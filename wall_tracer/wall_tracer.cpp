@@ -192,12 +192,12 @@ unsigned char uart_receive(void)
 
 void uart_puts(const char * str)
 {
-	int len = strlen(str);
-	int i;
-	for(i=0;i<len;i++)
-	{
-		uart_transmit(str[i]);
-	}
+	// int len = strlen(str);
+	// int i;
+	// for(i=0;i<len;i++)
+	// {
+	//    uart_transmit(str[i]);
+	// }
 }
 
 int abs(int num)
@@ -233,8 +233,8 @@ void point_turn_right()
 {
 	// Change Direction
 	PORTD = 0;
-	PORTD |= (0<<PD6) | (1<<PD5);
-	PORTD |= (0<<PD4) | (1<<PD3);
+	PORTD |= (1<<PD3) | (0<<PD4);
+	PORTD |= (0<<PD1) | (1<<PD0);
 	PORTD |= (1<<PD2);
 
 	// Rotate both wheels
@@ -246,8 +246,8 @@ void point_turn_right()
 
 	// Revert Direction
 	PORTD = 0;
-	PORTD |= (1<<PD6) | (0<<PD5);
-	PORTD |= (0<<PD4) | (1<<PD3);
+	PORTD |= (1<<PD3) | (0<<PD4);
+	PORTD |= (1<<PD1) | (0<<PD0);
 	PORTD |= (1<<PD2);
 }
 
@@ -255,8 +255,8 @@ void point_turn_left()
 {
 	// Change Direction
 	PORTD = 0;
-	PORTD |= (1<<PD6) | (0<<PD5);
-	PORTD |= (1<<PD4) | (0<<PD3);
+	PORTD |= (0<<PD3) | (1<<PD4);
+	PORTD |= (1<<PD1) | (0<<PD0);
 	PORTD |= (1<<PD2);
 
 	// Rotate both wheels
@@ -268,7 +268,7 @@ void point_turn_left()
 
 	// Revert Direction
 	PORTD = 0;
-	PORTD |= (1<<PD6) | (0<<PD5);
-	PORTD |= (0<<PD4) | (1<<PD3);
+	PORTD |= (1<<PD3) | (0<<PD4);
+	PORTD |= (1<<PD1) | (0<<PD0);
 	PORTD |= (1<<PD2);
 }

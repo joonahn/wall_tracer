@@ -167,15 +167,6 @@
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="motor_test.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="sensor_test.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="turn_test.cpp">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="wall_tracer.cpp">
       <SubType>compile</SubType>
     </Compile>

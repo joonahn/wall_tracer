@@ -54,10 +54,10 @@ int main()
 
 	DDRB = 6;
 	DDRC = 0;
-	DDRD = 0x7c;
+	DDRD = 0x1F;
 
 	//Initialize UART
-	uart_init();
+	//uart_init();
 
 	// VR Value Read
 	//parameter_init();
@@ -67,9 +67,10 @@ int main()
 
 	//Motor Signal Initialization
 	PORTD = 0;
-	PORTD |= (1<<PD6) | (0<<PD5);
-	PORTD |= (0<<PD4) | (1<<PD3);
+	PORTD |= (1<<PD3) | (0<<PD4);
+	PORTD |= (1<<PD1) | (0<<PD0);
 	PORTD |= (1<<PD2);
+
 
 	while (1) {
 
@@ -82,7 +83,7 @@ int main()
 		heading = IRF-IRB;
 
 		// Print Debug string
-		sprintf(str, "IRF : %d\n IRB : %d\nIRH : %d\n\n", IRF, IRB, IRH);
+		//sprintf(str, "IRF : %d\n IRB : %d\nIRH : %d\n\n", IRF, IRB, IRH);
 		uart_puts(str);
 
 		//Set target heading
